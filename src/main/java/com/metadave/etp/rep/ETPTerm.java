@@ -21,10 +21,11 @@
 
 package com.metadave.etp.rep;
 
+import com.ericsson.otp.erlang.OtpErlangDecodeException;
 import com.ericsson.otp.erlang.OtpErlangObject;
 
-public abstract class ETPTerm<T> {
-    protected T value;
+public abstract class ETPTerm {
+    protected Object value;
 
 
     public ETPTerm() {
@@ -32,17 +33,17 @@ public abstract class ETPTerm<T> {
     }
 
 
-    public abstract OtpErlangObject getOTP();
+    public abstract OtpErlangObject getOTP() throws OtpErlangDecodeException;
 
-    public ETPTerm(T value) {
+    public ETPTerm(Object value) {
         this.value = value;
     }
 
-    public T getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 

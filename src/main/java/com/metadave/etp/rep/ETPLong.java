@@ -26,7 +26,19 @@ import com.ericsson.otp.erlang.OtpErlangLong;
 import com.ericsson.otp.erlang.OtpErlangObject;
 
 // TODO: Change Integer to Long
-public class ETPLong extends ETPTerm<Long> {
+public class ETPLong extends ETPTerm {
+
+    protected Long value;
+
+    @Override
+    public Long getValue() {
+        return this.value;
+    }
+
+    public void setValue(Long value) {
+        this.value = value;
+    }
+
     public ETPLong(Long value) {
         super(value);
     }

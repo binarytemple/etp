@@ -23,16 +23,29 @@ package com.metadave.etp.rep;
 
 
 import com.ericsson.otp.erlang.OtpErlangAtom;
+import com.ericsson.otp.erlang.OtpErlangDecodeException;
 import com.ericsson.otp.erlang.OtpErlangObject;
+import com.ericsson.otp.erlang.OtpInputStream;
 
-public class ETPAtom extends ETPTerm<String> {
+public class ETPAtom extends ETPTerm {
     public ETPAtom(String value) {
         super(value);
     }
 
     @Override
-    public OtpErlangObject getOTP() {
-        return new OtpErlangAtom(this.getValue());
+    public OtpErlangObject getOTP() throws OtpErlangDecodeException {
+        if (value instanceof Boolean ) {
+            return new OtpErlangAtom((Boolean) this.getValue());
+        }else if(value instanceof String) {
+            return new OtpErlangAtom((String) this.getValue());
+        }else if(value instanceof OtpInputStream) {
+            return new OtpErlangAtom((OtpInputStream) this.getValue());
+        }
+
+
+        throw new UnsupportedOperationException();
+
+
     }
 
 }

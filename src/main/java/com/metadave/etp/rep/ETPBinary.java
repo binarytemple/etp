@@ -25,7 +25,10 @@ import com.ericsson.otp.erlang.OtpErlangObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ETPBinary extends ETPTerm<List<ETPBinary.ETPBinaryValue>> {
+public class ETPBinary extends ETPTerm{
+
+    protected List<ETPBinary.ETPBinaryValue> value;
+
 
     public ETPBinary(List<ETPBinaryValue> value) {
         super(value);
@@ -67,14 +70,14 @@ public class ETPBinary extends ETPTerm<List<ETPBinary.ETPBinaryValue>> {
         return null;
     }
 
-    public static abstract class ETPBinaryValue<V> extends ETPTerm<V> {
+    public static abstract class ETPBinaryValue extends ETPTerm {
         private Integer size = null;
 
-        protected ETPBinaryValue(V value) {
+        protected ETPBinaryValue(Object value) {
             this.value = value;
         }
 
-        protected ETPBinaryValue(V value, int size) {
+        protected ETPBinaryValue(Object value, int size) {
             this.size = size;
             this.value = value;
         }
@@ -92,7 +95,20 @@ public class ETPBinary extends ETPTerm<List<ETPBinary.ETPBinaryValue>> {
 
     }
 
-    public static class BinInt extends ETPBinaryValue<Long> {
+    public static class BinInt extends ETPBinaryValue{
+
+        protected Integer value;
+
+
+        @Override
+        public Integer getValue() {
+            return value;
+        }
+
+        public void setValue(Integer value) {
+            this.value = value;
+        }
+
         public BinInt(Long value) {
             super(value);
         }
@@ -116,7 +132,19 @@ public class ETPBinary extends ETPTerm<List<ETPBinary.ETPBinaryValue>> {
         }
     }
 
-    public static class BinString extends ETPBinaryValue<String> {
+    public static class BinString extends ETPBinaryValue {
+
+        protected String value;
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
         public BinString(String value) {
             super(value);
         }

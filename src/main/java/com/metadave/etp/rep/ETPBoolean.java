@@ -24,13 +24,16 @@ package com.metadave.etp.rep;
 import com.ericsson.otp.erlang.OtpErlangBoolean;
 import com.ericsson.otp.erlang.OtpErlangObject;
 
-public class ETPBoolean extends ETPTerm<Boolean>{
+public class ETPBoolean extends ETPTerm {
+
+    protected Boolean value;
+
     public ETPBoolean(Boolean value) {
         super(value);
     }
 
     @Override
     public OtpErlangObject getOTP() {
-        return new OtpErlangBoolean(this.getValue());
+        return new OtpErlangBoolean(this.value);
     }
 }

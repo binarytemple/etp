@@ -25,7 +25,20 @@ package com.metadave.etp.rep;
 import com.ericsson.otp.erlang.OtpErlangObject;
 import com.ericsson.otp.erlang.OtpErlangString;
 
-public class ETPString extends ETPTerm<String> {
+public class ETPString extends ETPTerm  {
+
+    protected String value;
+
+    @Override
+    public String getValue() {
+        return this.value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+
     public ETPString(String value) {
         super(value);
     }

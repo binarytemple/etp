@@ -24,13 +24,27 @@ package com.metadave.etp.rep;
 import com.ericsson.otp.erlang.OtpErlangDouble;
 import com.ericsson.otp.erlang.OtpErlangObject;
 
-public class ETPDouble extends ETPTerm<Double> {
+public class ETPDouble extends ETPTerm {
+
+    protected Double value;
+
+
+    @Override
+    public Double getValue() {
+        return value;
+    }
+
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
     public ETPDouble(Double value) {
         super(value);
     }
 
     @Override
     public OtpErlangObject getOTP() {
-        return new OtpErlangDouble(this.getValue());
+        return new OtpErlangDouble(this.value);
     }
 }

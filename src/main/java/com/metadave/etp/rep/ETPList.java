@@ -21,20 +21,24 @@
 
 package com.metadave.etp.rep;
 
+import com.ericsson.otp.erlang.OtpErlangDecodeException;
 import com.ericsson.otp.erlang.OtpErlangList;
 import com.ericsson.otp.erlang.OtpErlangObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ETPList extends ETPTerm<List<ETPTerm<?>>>{
-    public ETPList(List<ETPTerm<?>> value) {
+public class ETPList extends ETPTerm{
+
+    protected List<ETPTerm> value;
+
+    public ETPList(List<ETPTerm> value) {
         super(value);
     }
 
-    public ETPList(ETPTerm<?> ... terms) {
-        List<ETPTerm<?>> ts = new ArrayList<ETPTerm<?>>();
-        for(ETPTerm<?> t : terms) {
+    public ETPList(ETPTerm ... terms) {
+        List<ETPTerm> ts = new ArrayList<ETPTerm>();
+        for(ETPTerm t : terms) {
             ts.add(t);
         }
         this.value = ts;
@@ -46,11 +50,21 @@ public class ETPList extends ETPTerm<List<ETPTerm<?>>>{
     }
 
     @Override
+    public  List<ETPTerm> getValue() {
+        return this.value;
+    }
+
+
+    public void setValue( List<ETPTerm> value) {
+        this.value = value;
+    }
+
+    @Override
     public String toString() {
         StringBuilder b = new StringBuilder();
         b.append("[");
         boolean isFirst = true;
-        for(ETPTerm<?> t : getValue()) {
+        for(ETPTerm t : getValue()) {
             if(isFirst) {
                 b.append(t.toString());
                 isFirst = false;
@@ -66,7 +80,7 @@ public class ETPList extends ETPTerm<List<ETPTerm<?>>>{
 
 
     @Override
-    public OtpErlangObject getOTP() {
+    public OtpErlangObject getOTP() throws OtpErlangDecodeException {
         OtpErlangObject[] children = new OtpErlangObject[this.getValue().size()];
         for(int i = 0; i < this.getValue().size(); i++) {
             children[i] = this.getValue().get(i).getOTP();
